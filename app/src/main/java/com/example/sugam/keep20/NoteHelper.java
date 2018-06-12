@@ -16,10 +16,10 @@ public class NoteHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String sql = "CREATE TABLE IF NOT EXISTS " + NoteContract.NoteEntry.TABLE_NAME + " ( " +
-                    NoteContract.NoteEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    NoteContract.NoteEntry.COLUMN_TITLE + " TEXT NOT NULL, "+
-                    NoteContract.NoteEntry.COLUMN_CONTENT + " TEXT NOT NULL, "+
-                    NoteContract.NoteEntry.COLUMN_TIME + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP "+
+                NoteContract.NoteEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                NoteContract.NoteEntry.COLUMN_TITLE + " TEXT NOT NULL, " +
+                NoteContract.NoteEntry.COLUMN_CONTENT + " TEXT NOT NULL, " +
+                NoteContract.NoteEntry.COLUMN_TIME + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP " +
                 ");";
         db.execSQL(sql);
     }

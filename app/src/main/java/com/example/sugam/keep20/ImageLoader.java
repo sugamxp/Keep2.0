@@ -14,12 +14,13 @@ import java.net.URL;
 
 public class ImageLoader extends android.support.v4.content.AsyncTaskLoader {
 
-private String queryString;
+    private String queryString;
 
-    public ImageLoader(Context context, String queryString){
+    public ImageLoader(Context context, String queryString) {
         super(context);
         this.queryString = queryString;
     }
+
     @Override
     public String loadInBackground() {
         String jsonString = null;
@@ -39,7 +40,7 @@ private String queryString;
             jsonString = builder.toString();
 
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

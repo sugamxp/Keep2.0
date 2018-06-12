@@ -6,32 +6,35 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        card_view:cardCornerRadius="4dp"
-        android:layout_margin="10dp">
+        android:layout_margin="10dp"
+        card_view:cardCornerRadius="4dp">
+
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:padding="7dp"
                 android:layout_margin="3dp"
-                android:textColor="#000000"
                 android:fontFamily="cursive"
-                android:hint="TITLE" />
+                android:hint="TITLE"
+                android:padding="7dp"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/tv_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:padding="7dp"
                 android:layout_margin="3dp"
                 android:fontFamily="monospace"
-                android:hint="CONTENT" />
+                android:hint="CONTENT"
+                android:padding="7dp"
+                android:textSize="15sp" />
 
         </LinearLayout>
     </android.support.v7.widget.CardView>

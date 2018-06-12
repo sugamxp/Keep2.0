@@ -1,42 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EditNote"
-    android:background="#ffffff">
+    android:background="#ffffff"
+    android:orientation="vertical"
+    tools:context=".EditNote">
 
     <EditText
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Title"
-        android:textSize="20sp"
         android:layout_margin="10dp"
-        android:padding="5dp"
-        android:fontFamily="cursive"
         android:background="@drawable/edittext_style"
-        />
+        android:fontFamily="cursive"
+        android:hint="Title"
+        android:padding="5dp"
+        android:textSize="20sp" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#000000"
-        android:alpha="0.5"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        />
+        android:alpha="0.5"
+        android:background="#000000" />
+
     <EditText
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Content"
-        android:textSize="15sp"
         android:layout_margin="10dp"
-        android:padding="5dp"
-        android:fontFamily="monospace"
         android:background="@drawable/edittext_style"
-        />
+        android:fontFamily="monospace"
+        android:hint="Content"
+        android:padding="5dp"
+        android:textSize="15sp" />
 
 </LinearLayout>
