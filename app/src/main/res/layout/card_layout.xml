@@ -17,21 +17,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:padding="7dp"
                 android:layout_margin="3dp"
-                android:fontFamily="serif-monospace"
+                android:textColor="#000000"
+                android:fontFamily="cursive"
                 android:hint="TITLE" />
             <TextView
                 android:id="@+id/tv_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:padding="7dp"
                 android:layout_margin="3dp"
-                android:fontFamily="serif"
+                android:fontFamily="monospace"
                 android:hint="CONTENT" />
 
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>
+
+    <!--606028-->

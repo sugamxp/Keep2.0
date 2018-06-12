@@ -20,8 +20,8 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
         public NoteViewHolder(View itemView) {
             super(itemView);
-            title = (TextView) itemView.findViewById(R.id.tv_title);
-            content = (TextView) itemView.findViewById(R.id.tv_content);
+            title = itemView.findViewById(R.id.tv_title);
+            content = itemView.findViewById(R.id.tv_content);
 
         }
 
@@ -36,7 +36,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     @Override
     public NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
-        View view = layoutInflater.inflate(R.layout.card_layout,parent,false);
+        View view = layoutInflater.inflate(R.layout.card_layout, parent, false);
         return new NoteViewHolder(view);
     }
 
@@ -45,7 +45,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         if (!mCursor.moveToPosition(position))
             return;
 
-        String title = mCursor.getString(mCursor.getColumnIndex(NoteContract.NoteEntry.COLUMN_TIME));
+        String title = mCursor.getString(mCursor.getColumnIndex(NoteContract.NoteEntry.COLUMN_TITLE));
         String content = mCursor.getString(mCursor.getColumnIndex(NoteContract.NoteEntry.COLUMN_CONTENT));
         long id = mCursor.getLong(mCursor.getColumnIndex(NoteContract.NoteEntry._ID));
 
@@ -57,5 +57,13 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     @Override
     public int getItemCount() {
         return mCursor.getCount();
+    }
+
+    public void swapCursor(Cursor newCursor) {
+        if (mCursor != null) mCursor.close();
+        mCursor = newCursor;
+        if (newCursor != null) {
+            this.notifyDataSetChanged();
+        }
     }
 }
