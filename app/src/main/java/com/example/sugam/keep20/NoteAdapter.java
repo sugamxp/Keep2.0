@@ -1,13 +1,20 @@
 package com.example.sugam.keep20;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import es.dmoral.toasty.Toasty;
+
+import static android.support.constraint.Constraints.TAG;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder> {
 
@@ -25,12 +32,22 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
         }
 
+//        @Override
+//        public void onClick(View v) {
+////            Toasty.normal(itemView.getContext(),"Pressed",Toast.LENGTH_LONG).show();
+////            Intent i = new Intent(itemView.getContext(),EditNote.class);
+////            i.putExtra("title",title.getText().toString());
+////            i.putExtra("content",content.getText().toString());
+////            i.putExtra("flag",1);
+////            itemView.getContext().startActivity(i);
+//        }
     }
 
     public NoteAdapter(Context context, Cursor cursor) {
         mContext = context;
         mCursor = cursor;
     }
+
 
     @NonNull
     @Override
@@ -45,13 +62,25 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         if (!mCursor.moveToPosition(position))
             return;
 
-        String title = mCursor.getString(mCursor.getColumnIndex(NoteContract.NoteEntry.COLUMN_TITLE));
-        String content = mCursor.getString(mCursor.getColumnIndex(NoteContract.NoteEntry.COLUMN_CONTENT));
-        long id = mCursor.getLong(mCursor.getColumnIndex(NoteContract.NoteEntry._ID));
+        final String title = mCursor.getString(mCursor.getColumnIndex(NoteContract.NoteEntry.COLUMN_TITLE));
+        final String content = mCursor.getString(mCursor.getColumnIndex(NoteContract.NoteEntry.COLUMN_CONTENT));
+        final long id = mCursor.getLong(mCursor.getColumnIndex(NoteContract.NoteEntry._ID));
 
         holder.title.setText(title);
         holder.content.setText(content);
         holder.itemView.setTag(id);
+        final Context c = holder.itemView.getContext();
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(c, EditNote.class);
+                intent.putExtra("title", title);
+                intent.putExtra("content", content);
+                intent.putExtra("flag", 1);
+                intent.putExtra("id", id);
+                c.startActivity(intent);
+            }
+        });
     }
 
     @Override

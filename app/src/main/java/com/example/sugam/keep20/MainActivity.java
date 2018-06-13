@@ -9,22 +9,31 @@ import android.database.sqlite.SQLiteDatabase;
 
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.provider.ContactsContract;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+
+import java.util.ArrayList;
+import java.util.Random;
+
+import es.dmoral.toasty.Toasty;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -36,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     Cursor cursor;
     NoteHelper noteHelper;
     ImageView imageView;
+    ArrayList<String> imageUrls;
     private static final String TAG = "MainActivity";
 
     @Override
@@ -46,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         collapse_function();
-
+        Random random = new Random();
         imageView = findViewById(R.id.expandedImage);
         noteHelper = new NoteHelper(this);
         dB = noteHelper.getReadableDatabase();
@@ -57,14 +67,15 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(noteAdapter);
         Log.d(TAG, "onCreate: Here");
+        imageUrls = new ArrayList<>();
+        addImages();
 
         ConnectivityManager connMgr = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
-            Glide.with(this).load("https://source.unsplash.com/1600x900/?black").into(imageView);
+            Glide.with(this).load(imageUrls.get(random.nextInt(9))).into(imageView);
             Log.d(TAG, "onCreate: glide successfull");
-
         }
 
         fab = findViewById(R.id.fab);
@@ -75,6 +86,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+
+                long id = (long) viewHolder.itemView.getTag();
+                dB.delete(NoteContract.NoteEntry.TABLE_NAME, NoteContract.NoteEntry._ID + " = " + id, null);
+                noteAdapter.swapCursor(getNotes());
+                Toasty.error(getApplicationContext(), "Note Deleted", Toast.LENGTH_LONG, false).show();
+            }
+        }).attachToRecyclerView(recyclerView);
 
     }
 
@@ -137,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
 
     final void openEditNote() {
         Intent i = new Intent(this, EditNote.class);
+        i.putExtra("flag", 0);
         startActivity(i);
     }
 
@@ -153,6 +180,17 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
     }
 
+    private void addImages() {
+        imageUrls.add("https://source.unsplash.com/CuFYW1c97w8/800x600");
+        imageUrls.add("https://source.unsplash.com/xrVDYZRGdw4/800x600");
+        imageUrls.add("https://source.unsplash.com/VK284NKoAVU/800x600");
+        imageUrls.add("https://source.unsplash.com/OqtafYT5kTw/800x600");
+        imageUrls.add("https://source.unsplash.com/vnpTRdmtQ30/800x600");
+        imageUrls.add("https://source.unsplash.com/mG28olYFgHI/800x600");
+        imageUrls.add("https://source.unsplash.com/oqStl2L5oxI/800x600");
+        imageUrls.add("https://source.unsplash.com/fzak3_U4npE/800x600");
+        imageUrls.add("https://source.unsplash.com/800x900/?black");
 
+    }
 }
 
