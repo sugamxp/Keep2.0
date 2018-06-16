@@ -5,19 +5,13 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import es.dmoral.toasty.Toasty;
-
-import static android.support.constraint.Constraints.TAG;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder> {
-
+    boolean selected = false;
     private Context mContext;
     private Cursor mCursor;
 
@@ -32,15 +26,6 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
         }
 
-//        @Override
-//        public void onClick(View v) {
-////            Toasty.normal(itemView.getContext(),"Pressed",Toast.LENGTH_LONG).show();
-////            Intent i = new Intent(itemView.getContext(),EditNote.class);
-////            i.putExtra("title",title.getText().toString());
-////            i.putExtra("content",content.getText().toString());
-////            i.putExtra("flag",1);
-////            itemView.getContext().startActivity(i);
-//        }
     }
 
     public NoteAdapter(Context context, Cursor cursor) {
@@ -58,7 +43,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final NoteViewHolder holder, int position) {
         if (!mCursor.moveToPosition(position))
             return;
 
@@ -81,6 +66,8 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
                 c.startActivity(intent);
             }
         });
+
+
     }
 
     @Override

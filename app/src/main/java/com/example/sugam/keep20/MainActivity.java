@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -29,6 +30,13 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.signin.SignInClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -39,13 +47,13 @@ import es.dmoral.toasty.Toasty;
 public class MainActivity extends AppCompatActivity {
     private Menu menu;
     private FloatingActionButton fab;
-    RecyclerView recyclerView;
-    NoteAdapter noteAdapter;
-    SQLiteDatabase dB;
-    Cursor cursor;
-    NoteHelper noteHelper;
-    ImageView imageView;
-    ArrayList<String> imageUrls;
+    private RecyclerView recyclerView;
+    private NoteAdapter noteAdapter;
+    private SQLiteDatabase dB;
+    private Cursor cursor;
+    private NoteHelper noteHelper;
+    private ImageView imageView;
+    private ArrayList<String> imageUrls;
     private static final String TAG = "MainActivity";
 
     @Override
@@ -146,6 +154,23 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.tool_add) {
             openEditNote();
             return true;
+        } else if (id == R.id.tool_signout) {
+
+            FirebaseAuth.getInstance().signOut();
+            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestEmail()
+                    .build();
+            GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+            mGoogleSignInClient.signOut()
+                    .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Intent i = new Intent(getApplicationContext(), SignIn.class);
+                            startActivity(i);
+                            finish();
+                        }
+                    });
         }
 
         return false;

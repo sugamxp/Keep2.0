@@ -13,16 +13,16 @@ import es.dmoral.toasty.Toasty;
 
 public class EditNote extends AppCompatActivity {
     private static final String TAG = "EditNote";
-    EditText et_title;
-    EditText et_content;
-    String title;
-    String content;
-    NoteHelper noteHelper;
-    SQLiteDatabase dB;
-    int i;
-    long id;
-    String rTitle;
-    String rContent;
+    private EditText et_title;
+    private EditText et_content;
+    private String title;
+    private String content;
+    private NoteHelper noteHelper;
+    private SQLiteDatabase dB;
+    private int i;
+    private long id;
+    private String rTitle;
+    private String rContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -3,8 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:title="Add Note"
-        app:showAsAction="always"
+        app:showAsAction="ifRoom"
         android:icon="@drawable/ic_action_name"
         android:id="@+id/tool_add"
         android:visible="false"/>
+
+    <item
+        android:title="SignOut"
+        app:showAsAction="never"
+        android:id="@+id/tool_signout"
+        android:visible="true"
+        />
+
 </menu>
