@@ -42,6 +42,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import es.dmoral.toasty.Toasty;
+import maes.tech.intentanim.CustomIntent;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -190,6 +191,7 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(this, EditNote.class);
         i.putExtra("flag", 0);
         startActivity(i);
+        CustomIntent.customType(this,"fadein-to-fadeout");
     }
 
     private Cursor getNotes() {

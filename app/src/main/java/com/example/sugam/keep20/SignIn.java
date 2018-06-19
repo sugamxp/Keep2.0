@@ -51,6 +51,7 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener {
 
     private void updateUI(FirebaseUser account) {
         if (account != null) {
+
             Intent i = new Intent(this, MainActivity.class);
             startActivity(i);
             finish();
