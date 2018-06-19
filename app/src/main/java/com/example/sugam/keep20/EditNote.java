@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import es.dmoral.toasty.Toasty;
+import maes.tech.intentanim.CustomIntent;
 
 public class EditNote extends AppCompatActivity {
     private static final String TAG = "EditNote";
@@ -53,6 +54,7 @@ public class EditNote extends AppCompatActivity {
                 addNote();
             } else {
                 super.onBackPressed();
+                CustomIntent.customType(this,"fadein-to-fadeout");
             }
 
         } else {
@@ -64,6 +66,8 @@ public class EditNote extends AppCompatActivity {
             cv.put(NoteContract.NoteEntry.COLUMN_CONTENT, content);
             dB.update(NoteContract.NoteEntry.TABLE_NAME, cv, NoteContract.NoteEntry._ID + " = " + id, null);
             Toasty.warning(this, "Note Updated", Toast.LENGTH_LONG, false).show();
+            CustomIntent.customType(this,"fadein-to-fadeout");
+
         }
     }
 
@@ -74,6 +78,8 @@ public class EditNote extends AppCompatActivity {
         cv.put(NoteContract.NoteEntry.COLUMN_TITLE, title);
         cv.put(NoteContract.NoteEntry.COLUMN_CONTENT, content);
         Toasty.success(getApplicationContext(), "Note Saved", Toast.LENGTH_SHORT, false).show();
+        CustomIntent.customType(this,"fadein-to-fadeout");
         return dB.insert(NoteContract.NoteEntry.TABLE_NAME, null, cv);
+
     }
 }

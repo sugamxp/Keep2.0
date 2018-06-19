@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import maes.tech.intentanim.CustomIntent;
+
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder> {
     boolean selected = false;
     private Context mContext;
@@ -63,7 +65,9 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
                 intent.putExtra("content", content);
                 intent.putExtra("flag", 1);
                 intent.putExtra("id", id);
+
                 c.startActivity(intent);
+                CustomIntent.customType(c,"fadein-to-fadeout");
             }
         });
 
